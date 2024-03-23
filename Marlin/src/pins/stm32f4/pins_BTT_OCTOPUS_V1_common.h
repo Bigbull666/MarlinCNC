@@ -234,10 +234,13 @@
 #define FAN0_PIN                            PA8   // Fan0
 #define FAN1_PIN                            PE5   // Fan1
 #define FAN2_PIN                            PD12  // Fan2
-#define FAN3_PIN                            PD13  // Fan3
-#define FAN4_PIN                            PD14  // Fan4
-#define FAN5_PIN                            PD15  // Fan5
+//#define FAN3_PIN                            PD13  // Fan3
+//#define FAN4_PIN                            PD14  // Fan4
+//#define FAN5_PIN                            PD15  // Fan5
 
+#define SPINDLE_LASER_PWM_PIN               PD15  // Spindle
+#define COOLANT_FLOOD_PIN                   PD14  // Coolant-flood
+#define COOLANT_MIST_PIN                    PD13  // Coolant-mist
 //
 // SD Support
 //

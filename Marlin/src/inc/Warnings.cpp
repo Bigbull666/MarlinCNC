@@ -691,7 +691,7 @@
 #endif
 
 #if HOMING_Z_WITH_PROBE && IS_CARTESIAN && DISABLED(Z_SAFE_HOMING)
-  #error "Z_SAFE_HOMING is recommended when homing with a probe. Enable Z_SAFE_HOMING or comment out this line to continue."
+  //#error "Z_SAFE_HOMING is recommended when homing with a probe. Enable Z_SAFE_HOMING or comment out this line to continue."
 #endif
 
 //
@@ -858,5 +858,5 @@
  * User doesn't have or disabled G92?
  */
 #if DISABLED(EDITABLE_STEPS_PER_UNIT)
-  #warning "EDITABLE_STEPS_PER_UNIT is required to enable G92 runtime configuration of steps-per-unit."
+  //#warning "EDITABLE_STEPS_PER_UNIT is required to enable G92 runtime configuration of steps-per-unit."
 #endif
