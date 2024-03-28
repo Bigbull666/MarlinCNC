@@ -127,6 +127,10 @@ void GcodeSuite::M3_M4(const bool is_M4) {
     );
     TERN_(SPINDLE_CHANGE_DIR, cutter.set_reverse(is_M4));
   }
+
+  #if SPINDLE_LASER_POWERUP_DELAY > 0
+    dwell(SPINDLE_LASER_POWERUP_DELAY);
+  #endif
 }
 
 /**
@@ -151,6 +155,10 @@ void GcodeSuite::M5() {
     }
   }
   cutter.set_enabled(false);                      // Disable enable output setting
+
+  #if SPINDLE_LASER_POWERDOWN_DELAY > 0
+    dwell(SPINDLE_LASER_POWERDOWN_DELAY);
+  #endif
 }
 
 #endif // HAS_CUTTER
