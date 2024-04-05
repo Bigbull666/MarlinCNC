@@ -41,27 +41,15 @@ Joystick joystick;
 
 #if HAS_JOY_ADC_X
   temp_info_t Joystick::x; // = { 0 }
-  #if ENABLED(INVERT_JOY_X)
-    #define JOY_X(N) (16383 - (N))
-  #else
-    #define JOY_X(N) (N)
-  #endif
+  #define JOY_X(N) (N)
 #endif
 #if HAS_JOY_ADC_Y
   temp_info_t Joystick::y; // = { 0 }
-  #if ENABLED(INVERT_JOY_Y)
-    #define JOY_Y(N) (16383 - (N))
-  #else
-    #define JOY_Y(N) (N)
-  #endif
+  #define JOY_Y(N) (N)
 #endif
 #if HAS_JOY_ADC_Z
   temp_info_t Joystick::z; // = { 0 }
-  #if ENABLED(INVERT_JOY_Z)
-    #define JOY_Z(N) (16383 - (N))
-  #else
-    #define JOY_Z(N) (N)
-  #endif
+  #define JOY_Z(N) (N)
 #endif
 
 #if ENABLED(JOYSTICK_DEBUG)
@@ -92,28 +80,43 @@ Joystick joystick;
     #endif
 
     auto _normalize_joy = [](float &axis_jog, const raw_adc_t raw, const raw_adc_t (&joy_limits)[4]) {
-      if (WITHIN(raw, joy_limits[0], joy_limits[3])) {
+      raw_adc_t limited_raw = raw;
+      if (limited_raw < joy_limits[0]) 
+        limited_raw = joy_limits[0];
+      else if (limited_raw > joy_limits[3]) 
+        limited_raw = joy_limits[3];
+
+      //if (WITHIN(raw, joy_limits[0], joy_limits[3])) {
         // within limits, check deadzone
-        if (raw > joy_limits[2])
-          axis_jog = (raw - joy_limits[2]) / float(joy_limits[3] - joy_limits[2]);
-        else if (raw < joy_limits[1])
-          axis_jog = int16_t(raw - joy_limits[1]) / float(joy_limits[1] - joy_limits[0]);  // negative value
-        // Map normal to jog value via quadratic relationship
-        axis_jog = SIGN(axis_jog) * sq(axis_jog);
-      }
+      if (limited_raw > joy_limits[2])
+        axis_jog = (limited_raw - joy_limits[2]) / float(joy_limits[3] - joy_limits[2]);
+      else if (limited_raw < joy_limits[1])
+        axis_jog = int16_t(limited_raw - joy_limits[1]) / float(joy_limits[1] - joy_limits[0]);  // negative value
+      // Map normal to jog value via quadratic relationship
+      axis_jog = SIGN(axis_jog) * sq(axis_jog);
+      //}
     };
 
     #if HAS_JOY_ADC_X
       static constexpr raw_adc_t joy_x_limits[4] = JOY_X_LIMITS;
       _normalize_joy(norm_jog.x, JOY_X(x.getraw()), joy_x_limits);
+      #if ENABLED(INVERT_JOY_X)
+        norm_jog.x = -norm_jog.x;
+      #endif
     #endif
     #if HAS_JOY_ADC_Y
       static constexpr raw_adc_t joy_y_limits[4] = JOY_Y_LIMITS;
       _normalize_joy(norm_jog.y, JOY_Y(y.getraw()), joy_y_limits);
+      #if ENABLED(INVERT_JOY_Y)
+        norm_jog.y = -norm_jog.y;
+      #endif
     #endif
     #if HAS_JOY_ADC_Z
       static constexpr raw_adc_t joy_z_limits[4] = JOY_Z_LIMITS;
       _normalize_joy(norm_jog.z, JOY_Z(z.getraw()), joy_z_limits);
+      #if ENABLED(INVERT_JOY_Z)
+        norm_jog.z = -norm_jog.z;
+      #endif
     #endif
   }
 

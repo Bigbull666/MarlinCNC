@@ -4229,13 +4229,13 @@
   #define JOY_EN_PIN  PF4  // RAMPS: Suggested pin D44 on AUX2
 
   //#define INVERT_JOY_X  // Enable if X direction is reversed
-  //#define INVERT_JOY_Y  // Enable if Y direction is reversed
+  #define INVERT_JOY_Y  // Enable if Y direction is reversed
   //#define INVERT_JOY_Z  // Enable if Z direction is reversed
 
   // Use M119 with JOYSTICK_DEBUG to find reasonable values after connecting:
-  #define JOY_X_LIMITS { 5500-1000, 29500-2000, 29500+2000, 55000+2000 } // min, deadzone start, deadzone end, max
-  #define JOY_Y_LIMITS { 5500-1000, 29500-2000, 29500+2000, 55000+2000 }
-  #define JOY_Z_LIMITS { 5500-1000, 29500-2000, 29500+2000, 55000+2000}
+  #define JOY_X_LIMITS { 10000, 34500-2000, 34500+2000, 60000 } // min, deadzone start, deadzone end, max
+  #define JOY_Y_LIMITS { 10000, 34000-2000, 34000+2000, 58000 }
+  #define JOY_Z_LIMITS { 10000, 34250-2000, 34250+2000, 59000 }
   #define JOYSTICK_DEBUG
 #endif
 
