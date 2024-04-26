@@ -47,6 +47,7 @@
 //
 // Trinamic Stallguard pins
 //
+/*
 #define X_DIAG_PIN                          PG6   // X-STOP
 #define Y_DIAG_PIN                          PG9   // Y-STOP
 #define Z_DIAG_PIN                          PG10  // Z-STOP
@@ -55,6 +56,26 @@
 #define E1_DIAG_PIN                         PG13  // E1DET
 #define E2_DIAG_PIN                         PG14  // E2DET
 #define E3_DIAG_PIN                         PG15  // E3DET
+*/
+
+// Endstop pins default settings override
+/*
+X-min || X-max
+--------------
+Y-min || Y-max
+--------------
+Y2-min|| Y2-max
+---------------
+Z-min || Z-max
+*/
+#define X_DIAG_PIN                          PG12   // E0DET   - original value = PG6
+#define Y_DIAG_PIN                          PG13   // E1DET   - original value = PG9
+#define Z_DIAG_PIN                          PG15   // E3DET   - original value = PG10
+#define Z2_DIAG_PIN                         PG11   // Z2-STOP - original value = PG11
+#define E0_DIAG_PIN                         PG6    // X-STOP  - original value = PG12
+#define E1_DIAG_PIN                         PG14   // E2DET   - Original value = PG13
+#define E2_DIAG_PIN                         PG9    // Y-STOP  - original value = PG14 
+#define E3_DIAG_PIN                         PG10   // E3DET   - Original value = PG15
 
 //
 // Limit Switches
