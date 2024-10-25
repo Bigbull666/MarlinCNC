@@ -71,6 +71,7 @@
  * G90  - Use Absolute Coordinates
  * G91  - Use Relative Coordinates
  * G92  - Set current position to coordinates given
+ * G106 - Custom command - Joystic over serial
  *
  * "M" Codes
  *
@@ -613,6 +614,8 @@ private:
   #endif
 
   static void G92();
+
+  static void G106();
 
   #if ENABLED(CALIBRATION_GCODE)
     static void G425();
