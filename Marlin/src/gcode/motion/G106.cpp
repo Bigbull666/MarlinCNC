@@ -24,12 +24,7 @@ void GcodeSuite::G106(){
   LOOP_NUM_AXES(i) {
     if ( parser.seenval(AXIS_CHAR(i)) ) {
       norm_jog[i] = parser.value_axis_units((AxisEnum)i) * 0.01;
-      if (norm_jog[i] < 0) {
-        norm_jog[i] = -sq(norm_jog[i]);
-      }
-      else {
-        norm_jog[i] = sq(norm_jog[i]);
-      }
+      norm_jog[i] = norm_jog[i] * norm_jog[i] * norm_jog[i];
     }
   }
 
@@ -37,7 +32,7 @@ void GcodeSuite::G106(){
   xyz_float_t move_dist{0};
   float hypot2 = 0;
   LOOP_NUM_AXES(i) if (norm_jog[i]) {
-    move_dist[i] = seg_time * norm_jog[i] * 2 * planner.settings.max_feedrate_mm_s[i];
+    move_dist[i] = seg_time * norm_jog[i] * planner.settings.max_feedrate_mm_s[i];
     hypot2 += sq(move_dist[i]);
   }
 
